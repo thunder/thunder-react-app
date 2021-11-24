@@ -16,7 +16,7 @@ import {
 const httpLink = new HttpLink({ 
   uri: process.env.REACT_APP_GRAPHQL_SERVER
 });
-const persistedQueriesLink = createPersistedQueryLink({ sha256 });
+const persistedQueriesLink = createPersistedQueryLink({useGETForHashedQueries: true, sha256});
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: persistedQueriesLink.concat(httpLink)
