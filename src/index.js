@@ -13,8 +13,15 @@ import {
   HttpLink
 } from "@apollo/client";
 
+let headers = {};
+if (process.env.REACT_APP_GRAPHQL_SERVER_USER && process.env.REACT_APP_GRAPHQL_SERVER_PASSWORD) {
+  var base64encodedData = Buffer.from(process.env.REACT_APP_GRAPHQL_SERVER_USER + ':' + process.env.REACT_APP_GRAPHQL_SERVER_PASSWORD).toString('base64');
+  headers.authorization = 'Basic ' + base64encodedData;
+}
+
 const httpLink = new HttpLink({ 
-  uri: process.env.REACT_APP_GRAPHQL_SERVER
+  uri: process.env.REACT_APP_GRAPHQL_SERVER,
+  headers
 });
 const persistedQueriesLink = createPersistedQueryLink({useGETForHashedQueries: true, sha256});
 const client = new ApolloClient({

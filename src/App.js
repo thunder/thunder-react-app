@@ -44,6 +44,7 @@ function Home() {
 function Page() {
   let { path } = useParams();
 
+  path = 'social/5-gartentrends-fuer-die-neue-saison-so-33607';
   const PAGE = gql`
     query($path: String!) {
       page(path: $path) {
@@ -55,6 +56,7 @@ function Page() {
   const { loading, error, data } = useQuery(PAGE, {
     variables: { path },
   });
+  console.log(data)
 
   if (loading || !data.page) return null;
   if (error) return `Error! ${error}`;
