@@ -26,7 +26,7 @@ function App() {
 
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route path="/:path" element={<Page />} />
+        <Route path="/:path/*" element={<Page />} />
       </Routes>
     </div>
   </Router>
@@ -42,8 +42,11 @@ function Home() {
 }
 
 function Page() {
-  let { path } = useParams();
-
+  let params = useParams();
+  let path = '/' + params.path;
+  if (params['*']) {
+      path += '/' + params['*']
+  }
   const PAGE = gql`
     query($path: String!) {
       page(path: $path) {
